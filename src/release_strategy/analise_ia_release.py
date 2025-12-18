@@ -6,29 +6,22 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-OUTPUT_DIR = "../../data/processed"
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(CURRENT_DIR, "../../data/processed")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-
 
 def analisar_estrategia():
     print("\n" + "=" * 70)
     print("   ATIVIDADE 2 - ANÁLISE DE ESTRATÉGIA DE RELEASES (IA)")
-    print("   Responsável: Miguel (Dupla 1)")
+    print("   Responsável: Miguel (Dupla 1 - Releases Strategy)")
     print("=" * 70 + "\n")
 
-    # --- INFO DE HARDWARE ---
-    print(f"[AMBIENTE] Configuração de Execução:")
-    print(f"   > CPU: Intel Core i5-10400F @ 2.90GHz")
-    print(f"   > RAM: 32GB")
-    print(f"   > GPU: NVIDIA RTX 5060")
-    print(f"   > OS:  Windows 11 | IDE: PyCharm 2025.2")
-
     device = 0 if torch.cuda.is_available() else -1
-    hw_status = "ATIVADO (CUDA)" if device == 0 else "DESATIVADO (CPU Mode)"
-    print(f"   > Aceleração de Hardware: {hw_status}")
+    execution_mode = "GPU (CUDA)" if device == 0 else "CPU (Standard)"
+
+    print(f"   > Modo de Execução do Script: {execution_mode}")
     print("-" * 70 + "\n")
 
-    # Dados de entrada
     release_history = """
     History:
     - v1.1.1 (Latest): Bug fixes.
@@ -67,7 +60,7 @@ def analisar_estrategia():
         print("      > Tipo: Zero-Shot Classification")
         pipe = pipeline("zero-shot-classification", model="facebook/bart-large-mnli", device=device)
 
-        print("      > Classificando com template de contexto...")
+        print("      > Classificando com template de contexto (Hypothesis Template)...")
         out = pipe(
             release_history,
             ["Rapid Release", "Release Train", "LTS"],
@@ -81,6 +74,8 @@ def analisar_estrategia():
     except Exception as e:
         print(f"      > [ERRO] Falha na execução: {e}")
         results.append(["BART-MNLI", "Erro", str(e)])
+
+    print("-" * 40)
 
     # --- MODELO 3: DistilBERT ---
     print(f"[3/3] Inicializando DistilBERT-MNLI (Modelo Leve)...")
@@ -113,7 +108,6 @@ def analisar_estrategia():
     df.to_csv(caminho_arquivo, index=False)
     print(f"[IO] Arquivo CSV exportado com sucesso para: {caminho_arquivo}")
     print("=" * 70 + "\n")
-
 
 if __name__ == "__main__":
     analisar_estrategia()
