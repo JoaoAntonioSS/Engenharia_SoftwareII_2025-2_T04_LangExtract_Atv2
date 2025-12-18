@@ -4,10 +4,8 @@ import torch
 import os
 import warnings
 
-# Limpa avisos técnicos para o vídeo ficar limpo
 warnings.filterwarnings("ignore")
 
-# Configuração de diretórios
 OUTPUT_DIR = "../../data/processed"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -18,7 +16,7 @@ def analisar_estrategia():
     print("   Responsável: Miguel (Dupla 1)")
     print("=" * 70 + "\n")
 
-    # --- INFO DE HARDWARE (Requisito de Reprodutibilidade) ---
+    # --- INFO DE HARDWARE ---
     print(f"[AMBIENTE] Configuração de Execução:")
     print(f"   > CPU: Intel Core i5-10400F @ 2.90GHz")
     print(f"   > RAM: 32GB")
@@ -105,7 +103,6 @@ def analisar_estrategia():
 
     print("=" * 70)
 
-    # Consolidação e Salvamento
     df = pd.DataFrame(results, columns=["Modelo", "Estratégia", "Justificativa"])
 
     print("\n[RELATÓRIO FINAL DA ANÁLISE]")
