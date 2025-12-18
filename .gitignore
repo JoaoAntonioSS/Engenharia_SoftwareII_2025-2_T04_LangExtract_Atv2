@@ -1,0 +1,30 @@
+# --- PYTHON ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- AMBIENTES VIRTUAIS ---
+venv/
+env/
+.env
+.venv/
+Scripts/
+Lib/
+
+# --- IDE (PYCHARM / VSCODE) ---
+.idea/
+.vscode/
+*.swp
+
+# --- HUGGING FACE / ARQUIVOS PESADOS ---
+*.bin
+*.pth
+*.h5
+*.ckpt
+.cache/
+cache/
+
+# --- SISTEMA OPERACIONAL ---
+.DS_Store
+Thumbs.db
+
