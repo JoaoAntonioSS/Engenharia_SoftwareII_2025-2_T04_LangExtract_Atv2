@@ -1,4 +1,4 @@
 Modelo,Estratégia,Justificativa
-Flan-T5,LTS,Instruction-based
-BART-MNLI,Rapid Release,Score: 0.51
-DistilBERT,Release Train,Confiança: 0.56
+Flan-T5,Feature-based Release,Instruction-based
+BART-MNLI,Feature-based Release,Score: 0.90
+DistilBERT,Feature-based Release,Confiança: 0.35

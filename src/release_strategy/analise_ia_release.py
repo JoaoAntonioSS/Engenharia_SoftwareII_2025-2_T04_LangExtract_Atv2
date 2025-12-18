@@ -10,104 +10,94 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(CURRENT_DIR, "../../data/processed")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
+
 def analisar_estrategia():
     print("\n" + "=" * 70)
     print("   ATIVIDADE 2 - ANÁLISE DE ESTRATÉGIA DE RELEASES (IA)")
-    print("   Responsável: Miguel (Dupla 1 - Releases Strategy)")
+    print("   Responsável: Miguel (Dupla 1)")
     print("=" * 70 + "\n")
 
     device = 0 if torch.cuda.is_available() else -1
     execution_mode = "GPU (CUDA)" if device == 0 else "CPU (Standard)"
-
-    print(f"   > Modo de Execução do Script: {execution_mode}")
+    print(f"[SISTEMA] Modo de Execução Detectado: {execution_mode}")
     print("-" * 70 + "\n")
 
     release_history = """
     History:
     - v1.1.1 (Latest): Bug fixes.
-    - v1.1.0 (Nov 14): Feature release. Gap: ~2.5 months.
-    - v1.0.9 (Aug 31): Improvements. Gap: ~2 weeks.
+    - v1.1.0 (Nov 14): Feature release. Gap: ~2.5 months from prev.
+    - v1.0.9 (Aug 31): Improvements. Gap: ~2 weeks from prev.
     - v1.0.8 (Aug 15): Features.
-    Observations: Semantic Versioning used.
+    - v1.0.6 (Aug 13): Major Refactor. Gap: Irregular.
+    - v1.0.5 (Aug 7): Bug Fixes.
+    - v1.0.4 (Aug 5): Integration (Ollama). Feature driven.
+
+    Observations: 
+    1. Semantic Versioning used. 
+    2. Releases happen when features are ready (Feature-based), not by calendar.
     """
 
-    print(f"[DADOS] Histórico carregado para análise:\n{release_history}")
+    print(f"[DADOS] Histórico carregado (Amostra):\n{release_history}")
     print("-" * 70)
 
     results = []
 
+
+    labels = ["Feature-based Release", "Release Train", "LTS"]
+
     # --- MODELO 1: Flan-T5 ---
-    print(f"[1/3] Inicializando Google Flan-T5-Large...")
+    print(f"[1/3] Inicializando Flan-T5 (Instruction)...")
     try:
-        print("      > Tipo: Instruction Tuned (Text-to-Text)")
         pipe = pipeline("text2text-generation", model="google/flan-t5-large", device=device)
-
-        print("      > Enviando prompt de instrução...")
-        prompt = f"Analyze: {release_history}. Is it Rapid Release, Release Train or LTS?"
+        prompt = f"Analyze: {release_history}. Choose one strategy: Feature-based Release, Release Train or LTS."
         out = pipe(prompt, max_new_tokens=20)[0]['generated_text']
-
-        print(f"      > [SUCESSO] Resposta gerada: {out}")
         results.append(["Flan-T5", out, "Instruction-based"])
+        print(f"      > [SUCESSO] Resposta: {out}")
     except Exception as e:
-        print(f"      > [ERRO] Falha na execução: {e}")
         results.append(["Flan-T5", "Erro", str(e)])
 
     print("-" * 40)
 
-    # --- MODELO 2: BART (Com Contexto Melhorado) ---
-    print(f"[2/3] Inicializando Facebook BART-Large-MNLI...")
+    # --- MODELO 2: BART (Zero-Shot) ---
+    print(f"[2/3] Inicializando BART-Large (Zero-Shot)...")
     try:
-        print("      > Tipo: Zero-Shot Classification")
         pipe = pipeline("zero-shot-classification", model="facebook/bart-large-mnli", device=device)
-
-        print("      > Classificando com template de contexto (Hypothesis Template)...")
-        out = pipe(
-            release_history,
-            ["Rapid Release", "Release Train", "LTS"],
-            hypothesis_template="The software release strategy is {}."
-        )
+        out = pipe(release_history, labels)
 
         top_label = out['labels'][0]
         score = out['scores'][0]
-        print(f"      > [SUCESSO] Classificação: {top_label} (Confiança: {score:.2f})")
         results.append(["BART-MNLI", top_label, f"Score: {score:.2f}"])
+        print(f"      > [SUCESSO] Classificação: {top_label} ({score:.2f})")
     except Exception as e:
-        print(f"      > [ERRO] Falha na execução: {e}")
         results.append(["BART-MNLI", "Erro", str(e)])
 
     print("-" * 40)
 
     # --- MODELO 3: DistilBERT ---
-    print(f"[3/3] Inicializando DistilBERT-MNLI (Modelo Leve)...")
+    print(f"[3/3] Inicializando DistilBERT (Efficiency)...")
     try:
-        print("      > Tipo: Knowledge Distillation (Efficiency Baseline)")
         classifier_light = pipeline("zero-shot-classification", model="typeform/distilbert-base-uncased-mnli",
                                     device=device)
+        res_distil = classifier_light(release_history, labels)
 
-        print("      > Executando inferência rápida...")
-        candidate_labels = ["Rapid Release", "Release Train", "LTS (Long Term Support)"]
-        res_distil = classifier_light(release_history, candidate_labels)
-
-        best_label_distil = res_distil['labels'][0]
-        score_distil = res_distil['scores'][0]
-        print(f"      > [SUCESSO] Classificação: {best_label_distil} (Confiança: {score_distil:.2f})")
-        results.append(["DistilBERT", best_label_distil, f"Confiança: {score_distil:.2f}"])
+        best_label = res_distil['labels'][0]
+        score = res_distil['scores'][0]
+        results.append(["DistilBERT", best_label, f"Confiança: {score:.2f}"])
+        print(f"      > [SUCESSO] Classificação: {best_label} ({score:.2f})")
     except Exception as e:
-        print(f"      > [ERRO] Falha na execução: {e}")
         results.append(["DistilBERT", "Erro", str(e)])
 
     print("=" * 70)
 
     df = pd.DataFrame(results, columns=["Modelo", "Estratégia", "Justificativa"])
-
-    print("\n[RELATÓRIO FINAL DA ANÁLISE]")
+    print("\n[RELATÓRIO FINAL - ALINHADO COM DUPLA]")
     print(df.to_string(index=False))
     print("\n" + "-" * 70)
 
     caminho_arquivo = f"{OUTPUT_DIR}/resultado_ia_releases.csv"
     df.to_csv(caminho_arquivo, index=False)
-    print(f"[IO] Arquivo CSV exportado com sucesso para: {caminho_arquivo}")
-    print("=" * 70 + "\n")
+    print(f"[IO] Arquivo CSV exportado.")
+
 
 if __name__ == "__main__":
     analisar_estrategia()

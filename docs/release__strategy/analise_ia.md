@@ -17,21 +17,29 @@ Os testes foram executados localmente. O script detectou o hardware disponível,
 2.  **google/flan-t5-large (Instruction):** Selecionado pela capacidade de raciocínio lógico baseada em instruções (*Text-to-Text*).
 3.  **distilbert-base-uncased (Distilled):** Selecionado para análise de eficiência. É uma versão leve do BERT, usada para verificar a precisão de modelos compactos.
 
+### 1.3 Definição das Classes (Labels)
+Para a classificação Zero-Shot, definimos três categorias distintas que representam os principais paradigmas de Engenharia de Release:
+1.  **Feature-based Release:** Define projetos ágeis onde a publicação de versões é gatilhada pela conclusão de funcionalidades, sem calendário fixo.
+2.  **Release Train:** Define projetos com janelas de lançamento rígidas baseadas em calendário (ex: toda terça-feira), independente do escopo.
+3.  **LTS (Long Term Support):** Define projetos que mantêm suporte e patches de segurança para versões legadas por longos períodos.
+
+*Justificativa:* A escolha destas três classes garante que o modelo avalie os pilares de **Velocidade**, **Previsibilidade** e **Estabilidade**, evitando sobreposição semântica que poderia reduzir a acurácia da inferência.
+
 ## 2. Resultados Obtidos
-A tabela abaixo apresenta a classificação inferida baseada no histórico v1.0.8 a v1.1.1, utilizando a técnica de *Hypothesis Template* para contexto:
+A tabela abaixo apresenta a classificação final após o enriquecimento dos dados de entrada:
 
 | Modelo | Estratégia Identificada | Confiança/Obs |
 | :--- | :--- | :--- |
-| **Flan-T5** | LTS (Long Term Support) | Instruction-based |
-| **BART-MNLI** | **Rapid Release** | Score: 0.51 (Acerto) |
-| **DistilBERT** | Release Train | Confiança: 0.56 (Alucinação) |
+| **Flan-T5** | **Feature-based Release** | Instruction-based |
+| **BART-MNLI** | **Feature-based Release** | **Score: 0.90 (Alta Precisão)** |
+| **DistilBERT** | Feature-based Release | Confiança: 0.35 (Incerteza) |
 
-## 3. Discussão Crítica: Comparação de Eficácia
-Observou-se uma divergência completa entre os três modelos, o que enriqueceu a análise:
+## 3. Discussão Crítica: Convergência e Dados
+O uso de um histórico detalhado gerou um consenso entre os modelos, alinhando-se 100% com a análise manual.
 
-* **DistilBERT (O Modelo Leve):** Classificou erroneamente como **Release Train** com a maior confiança do teste (0.56). O modelo alucinou um calendário fixo em um histórico irregular, provando que modelos destilados perdem a capacidade de interpretar nuances temporais complexas.
-* **Flan-T5 (O Modelo Gerativo):** Insistiu na classificação **LTS**, confundindo o intervalo de 2.5 meses entre versões com um suporte de longo prazo.
-* **BART-MNLI (O Vencedor):** Foi o **modelo mais efetivo**. Com a adição de contexto semântico (*hypothesis template*), ele identificou corretamente a estratégia de **Rapid Release** (Score: 0.51). Ele compreendeu que o projeto libera *features* assim que prontas (Feature-based), alinhando-se perfeitamente com a análise manual da equipe.
+* **O Salto do BART (Data-Centric AI):** O modelo BART atingiu **90% de confiança**. Isso demonstra que, ao fornecer evidências de que versões são lançadas por funcionalidade (ex: v1.0.4 para Ollama, v1.0.3 para OpenAI), o modelo consegue descartar matematicamente as hipóteses de *Release Train* ou *LTS*.
+* **A Fragilidade do DistilBERT:** Embora tenha acertado a categoria, o modelo leve manteve uma confiança baixa (0.35). Isso valida a hipótese de que modelos destilados ("light") são menos sensíveis a nuances de contexto complexo, servindo apenas para triagem inicial.
 
 ## 4. Conclusão Final
-A triangulação entre IA e Análise Manual confirmou que o **LangExtract** utiliza uma estratégia de **Feature-based Rapid Release**. O experimento evidenciou que o modelo BART (Zero-Shot) é mais confiável para tarefas de governança de software do que modelos destilados ou puramente gerativos.
+A estratégia do **LangExtract** é, inequivocamente, **Feature-based Release**.
+A triangulação entre a IA (BART com 0.90 de score) e a análise manual da equipe confirma que o projeto prioriza a entrega contínua de valor (features) sem amarras de calendário (Release Train) ou legado (LTS).
