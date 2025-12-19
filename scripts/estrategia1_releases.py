@@ -7,7 +7,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR = os.path.join(CURRENT_DIR, "../../data/processed")
+OUTPUT_DIR = os.path.join(CURRENT_DIR, "../../output")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
