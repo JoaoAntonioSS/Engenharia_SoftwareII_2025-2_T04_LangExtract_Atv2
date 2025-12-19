@@ -31,10 +31,6 @@ print(f"Total: {len(commits_reais)} commits.")
 print(f"Carregando IA ({MODEL_NAME})...")
 model = SentenceTransformer(MODEL_NAME)
 
-# --- AQUI ESTÁ A CORREÇÃO INTELIGENTE ---
-# Agora aceitamos dois padrões de alta qualidade:
-# 1. Conventional (feat:, fix:)
-# 2. Imperative Mood (Add, Update, Remove - Padrão Google/Linux)
 
 padrao_bom = [
     "feat: add functionality", "fix: resolve bug", "docs: update readme", # Conventional
