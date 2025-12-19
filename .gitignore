@@ -8,7 +8,7 @@ venv/
 env/
 .env
 .venv/
-Scripts/
+# Scripts/
 Lib/
 
 # --- IDE (PYCHARM / VSCODE) ---
