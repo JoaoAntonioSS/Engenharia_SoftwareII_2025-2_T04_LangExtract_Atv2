@@ -1,0 +1,4 @@
+Modelo,Workflow_Identificado,Justificativa,Status
+RoBERTa MNLI,GitHub Flow,"Confiança: 0.32",Sucesso
+DeBERTa v3 MNLI,Erro,"Modelo não disponível publicamente no Hugging Face (microsoft/deberta-v3-large-mnli)",Falha
+T5 v1.1 Base,"Resposta genérica","Instruction-based reasoning (não classificou explicitamente)",Sucesso Parcial
