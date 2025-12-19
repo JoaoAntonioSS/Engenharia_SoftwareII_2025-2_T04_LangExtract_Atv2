@@ -1,3 +1,60 @@
+# 🧠 Engenharia de Software II – 2025.2 – T04  
+### Projeto: **LangExtract – Gerência de Configuração**
+
+Este é o repositório oficial da **Atividade 2** da disciplina **Engenharia de Software II (Turma T04)**.  
+O objetivo é aplicar técnicas de **Processamento de Linguagem Natural (PLN)** para identificar **Padrões de Gerência de Configuração** em um projeto de código aberto.
+
+O trabalho é dividido em três **frentes de análise**, baseadas no material da disciplina (conforme o [PDF de sugestão](https://www.google.com/search?q=Sugest%25C3%25A3o_Atividade1.pdf)):
+
+1. 🗒️ **Frente 1 – Estratégia de Releases**  
+2. 🧩 **Frente 2 – Modelo de Branching e Fluxo de Trabalho**  
+3. 🗂️ **Frente 3 – Governança do Projeto**  
+
+---
+
+## 🎯 Projeto Alvo da Análise
+
+- **Repositório:** [`google/langextract`](https://github.com/google/langextract)  
+- **Descrição:** Biblioteca Python desenvolvida pelo Google que utiliza **Modelos de Linguagem (LLMs)** para extrair informações estruturadas (como dados médicos) a partir de textos não estruturados.
+
+## ⚙️ Como Reproduzir a Análise
+
+Este repositório contém todo o código necessário para replicar as análises realizadas nas três frentes.
+
+### 1. Configuração do Ambiente
+
+> Recomendamos o uso de um ambiente virtual (`venv`) para isolar as dependências.
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/[SEU_USUARIO]/Engenharia_SoftwareII_2025-2_T04_langextract.git
+cd Engenharia_SoftwareII_2025-2_T04_langextract
+
+# 2. Crie e ative o ambiente virtual (opcional, mas recomendado)
+python -m venv venv
+source venv/bin/activate  # No Windows: .\venv\Scripts\activate
+
+# 3. Instale as dependências
+pip install -r requirements.txt
+```
+
+### 2. Executando as Análises
+
+Os scripts de cada frente estão localizados na pasta `/scripts`.
+
+```bash
+# Frente 1 – Estratégia de Releases
+scripts/estrategia1_releases.py
+
+# Frente 2 – Modelo de Branching e Fluxo de Trabalho
+scripts/estrategia2_branching_model.py
+
+# Frente 3 – Governança do Projeto
+scripts/estrategia3_governanca_do_projeto.py
+
+```
+---
+
 # Análise Manual vs. Análise de IA do Projeto LangExtract
 
 ## 1. Estratégia de Releases
