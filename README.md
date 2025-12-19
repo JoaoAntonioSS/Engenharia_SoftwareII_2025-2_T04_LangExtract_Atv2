@@ -1,4 +1,4 @@
-Análise Manual vs. Análise de IA do Projeto LangExtract
+# Análise Manual vs. Análise de IA do Projeto LangExtract
 
 ## 1. Estratégia de Releases
 
