@@ -50,11 +50,37 @@ scripts/estrategia1_releases.py
 scripts/estrategia2_branching_model.py
 
 # Frente 3 – Governança do Projeto
-scripts/estrategia3_governanca_do_projeto.py
+scripts/estrategia3_governance_analysis.py
 
 ```
 ---
 
+## 🧩 Estrutura de Pastas
+
+```bash
+.
+├── docs/              # Análises com modelos de IA e manuais
+│   ├── estrategia1_releases
+│      ├── analise_ia.md
+│      ├── analise_manual.ipynb
+│   ├── estrategia2_branching_model
+│      ├── analise_ia.md
+│      ├── analise_manual.ipynb
+│   ├── estrategia3_governance_analysis
+│      ├── analise_ia.md
+│      ├── analise_manual.ipynb
+├── output/              # Resultados das análises com modelos de IA
+│   ├── resultado_ia_branching_model.csv
+│   ├── resultado_ia_governance_analysis.csv
+│   ├── resultado_ia_releases.csv
+├── scripts/              # Scripts de execução de cada frente
+│   ├── estrategia1_releases.py
+│   ├── estrategia2_branching_model.py
+│   └── estrategia3_governance_analysis.py
+└── .gitignore
+└── README.md             # Documento principal com instruções de execução do projeto e análise geral dos resultados das 3 frentes
+└── requirements.txt      # Arquivo com as dependências necessárias à execução dos scripts
+```
 # Análise Manual vs. Análise de IA do Projeto LangExtract
 
 ## 1. Estratégia de Releases
