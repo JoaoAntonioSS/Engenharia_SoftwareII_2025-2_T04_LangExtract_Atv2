@@ -83,7 +83,7 @@ scripts/estrategia3_governance_analysis.py
 ```
 ## 🗒️ Análise da Frente 1: Estratégia de Releases
 
-**Responsáveis:** Miguel Lucas Santana Freire (análise com modelo de IA) e Débora Diana Gonçalves dos Santos (análise manual)
+**Responsáveis:** Miguel Lucas Santana Freire e Débora Diana Gonçalves dos Santos
 
 ### 🎯 Objetivo
 Analisar a estratégia de releases do projeto com uma abordagem comparativa, para identificar padrões de gerência de configuração. Na análise manual, foi feita a inspeção manual do histórico de versões, tags e estrutura de branches.
@@ -113,10 +113,51 @@ Definição das Classes (Labels) - Para a classificação Zero-Shot, definimos t
 **2. Release Train:** Define projetos com janelas de lançamento rígidas baseadas em calendário (ex: toda terça-feira), independente do escopo.  
 **3. LTS (Long Term Support):** Define projetos que mantêm suporte e patches de segurança para versões legadas por longos períodos.  
 Justificativa - A escolha destas três classes garante que o modelo avalie os pilares de Velocidade, Previsibilidade e Estabilidade, evitando sobreposição semântica que poderia reduzir a acurácia da inferência.  
+
 O script executado foi:
 
 ```bash
 scripts/estrategia1_releases.py
+```
+
+## 🧩 Análise da Frente 2: Modelo de Branching e Fluxo de Trabalho
+
+**Responsáveis:** João Antônio Sousa da Silva e Guilherme Henrique Santos Araújo
+
+### 🎯 Objetivo
+Para identificar o modelo de branching e o fluxo de trabalho adotado no projeto LangExtract, utilizamos uma abordagem comparativa com modelos de LLM hospedados no Hugging Face, aplicados diretamente sobre o conteúdo do arquivo CONTRIBUTING.md do repositório.
+
+---
+
+### 🧠 Modelos Utilizados
+**Modelo:** `zero-shot-classification`  
+**Base:** `roberta-large-mnli`
+
+**Modelo:** `zero-shot-classification`  
+**Base:** `microsoft/deberta-v3`
+
+**Modelo:** `text2text-generation`  
+**Base:** `t5-v1_1-base`
+
+### 💡 Por que estes modelos?
+**roberta-large-mnli (Zero-Shot):** Selecionado pela alta robustez em tarefas de Natural Language Inference, sendo eficaz na identificação de padrões de workflow sem necessidade de treinamento adicional.
+
+**microsoft/deberta-v3 (Zero-Shot):** Escolhido por representar uma arquitetura moderna e otimizada para compreensão contextual profunda. Sua tentativa de uso faz parte da análise experimental.
+
+**t5-v1_1-base (Instruction):** Utilizado para análise baseada em instruções (Text-to-Text), permitindo respostas abertas sobre o fluxo de trabalho descrito.  
+
+### ⚙️ Metodologia
+Definição das Classes (Labels) - Para a classificação Zero-Shot, foram definidas as seguintes categorias de branching models:  
+**1. GitHub Flow:** Modelo simplificado com branches curtos e integração contínua.  
+**2. GitFlow:** Modelo estruturado com múltiplas branches permanentes.  
+**3. Trunk-Based Development:** Desenvolvimento concentrado na branch principal com integrações frequentes.  
+**4. Centralized Workflow:** Fluxo tradicional com contribuições diretas na branch principal.  
+Justificativa - Essas classes representam os principais paradigmas de controle de versões, evitando sobreposição semântica e facilitando a inferência correta dos modelos.  
+
+O script executado foi:
+
+```bash
+scripts/estrategia2_branching_model.py
 ```
 
 # Análise Manual vs. Análise de IA do Projeto LangExtract
