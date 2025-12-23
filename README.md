@@ -160,11 +160,46 @@ O script executado foi:
 scripts/estrategia2_branching_model.py
 ```
 
-# Análise Manual vs. Análise de IA do Projeto LangExtract
+## 🗂️ Análise da Frente 3: Governança do Projeto
+
+**Responsáveis:** Irandi de Jesus Silva e Isis Gabrielle Conceição de Menezes
+
+### 🎯 Objetivo
+Mensurar o nível de maturidade da Governança do Projeto, focando especificamente na validação da Estratégia de Releases e do Modelo de Fluxo de Trabalho (Branching). Esta frente não tem como finalidade identificar isoladamente a estratégia de releases ou o modelo de branching, uma vez que essas análises foram conduzidas nas outras frentes do projeto. O foco desta seção é analisar a coerência entre essas decisões e identificar indícios de maturidade no processo de governança do projeto.
+
+---
+
+### 🧠 Modelos Utilizados
+**Modelo:** `all-MiniLM-L6-v2`  
+
+**Modelo:** `all-mpnet-base-v2`  
+
+**Modelo:** `paraphrase-MiniLM-L3-v2`  
+
+### 💡 Por que estes modelos?
+**all-MiniLM-L6-v2:** Selecionado como Modelo de referência (Equilíbrio).
+
+**all-mpnet-base-v2:** Escolhido como Modelo de Alta Precisão (Detecta nuances complexas).
+
+**paraphrase-MiniLM-L3-v2:** Utilizado como Modelo de Alta Velocidade (Teste de performance).  
+
+### ⚙️ Metodologia
+Desenvolvemos scripts em Python que combinam Processamento de Linguagem Natural (NLP) com regras de negócio baseadas no Google Style Guide. Abaixo, seguem as etapas realizadas:   
+**1. Coleta de Dados (Amostragem Estatística):** Para garantir relevância, não analisamos commits isolados. Implementamos uma função para extrair os últimos 100 commits via API do GitHub.  
+**2. Análise Semântica com IA (Embeddings):** Utilizamos a técnica de Embeddings, onde a IA converte textos em vetores numéricos multidimensionais. Isso permite calcular a similaridade de intencionalidade, não apenas de palavras.  
+**3. Algoritmo de Classificação Híbrida:** Para evitar "falsos negativos", refinamos o algoritmo com uma lógica híbrida que aceita tanto a similaridade semântica (IA) quanto a sintaxe rígida (Regras).   
+
+O script executado foi:
+
+```bash
+scripts/estrategia2_governance_analysis.py
+```
+
+## 📊 Análise Manual vs. Análise de IA do Projeto LangExtract
 
 **Responsáveis:** Allex Lemos de Souza Pinheiro e Thiago Menezes Vasconcelos
 
-## 1. Estratégia de Releases
+### 1. Estratégia de Releases
 
 Na análise manual, ficou claro que o projeto **LangExtract** segue uma **estratégia de releases baseada em funcionalidades (Feature-based Release)**, com o uso do **Semantic Versioning (SemVer)**. As versões são incrementadas conforme novas funcionalidades são implementadas e corrigidas, sem depender de um ciclo fixo de lançamento (não há **Release Train**) ou versões de longo prazo (sem **LTS**). As releases são feitas de maneira contínua, sem datas específicas para o lançamento.
 
@@ -174,7 +209,7 @@ Na análise de IA, todos os modelos utilizados nas três frentes (documentação
 
 ---
 
-## 2. Branching Model e Fluxo de Trabalho
+### 2. Branching Model e Fluxo de Trabalho
 
 De acordo com a análise manual, o projeto segue o **GitHub Flow**, um modelo simplificado de branching. Nesse modelo, a **branch principal (main)** é a única linha de base permanente. Todas as alterações são feitas por meio de **pull requests (PRs)** para a **main**, sem o uso de uma branch **develop** ou outras branches de longa duração. Isso caracteriza o fluxo de trabalho do projeto como ágil e direto.
 
@@ -184,7 +219,7 @@ A análise de IA também confirmou que o modelo de branching adotado é o **GitH
 
 ---
 
-## 3. Governança do Projeto
+3## 3. Governança do Projeto
 
 A análise manual indicou que o projeto **LangExtract** tem uma governança bem estruturada, com práticas consistentes de controle de versões e integração contínua. As releases são baseadas em versões consolidadas e estáveis da branch **main**, com uma clara organização do repositório e mensagens de commit bem definidas. A documentação também é bem organizada, o que ajuda a manter a governança do projeto de forma transparente e eficiente.
 
@@ -194,7 +229,7 @@ Na análise de IA, os modelos identificaram que a governança é **estruturada**
 
 ---
 
-## Considerações Finais
+### Considerações Finais
 
 **Convergências**: Tanto a análise manual quanto as de IA concordaram nos pontos principais, como a **estratégia de releases baseada em funcionalidades**, o **GitHub Flow** no branching model e a **governança estruturada**. Em geral, os resultados foram bastante consistentes, com a IA oferecendo uma confirmação rápida das estratégias e práticas observadas manualmente.
 
