@@ -219,7 +219,7 @@ A análise de IA também confirmou que o modelo de branching adotado é o **GitH
 
 ---
 
-3## 3. Governança do Projeto
+### 3. Governança do Projeto
 
 A análise manual indicou que o projeto **LangExtract** tem uma governança bem estruturada, com práticas consistentes de controle de versões e integração contínua. As releases são baseadas em versões consolidadas e estáveis da branch **main**, com uma clara organização do repositório e mensagens de commit bem definidas. A documentação também é bem organizada, o que ajuda a manter a governança do projeto de forma transparente e eficiente.
 
