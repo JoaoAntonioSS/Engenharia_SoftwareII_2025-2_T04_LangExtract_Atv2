@@ -78,6 +78,7 @@ scripts/estrategia3_governance_analysis.py
 │   ├── estrategia2_branching_model.py
 │   └── estrategia3_governance_analysis.py
 └── .gitignore
+└── INFRA.md
 └── README.md             # Documento principal com instruções de execução do projeto e análise geral dos resultados das 3 frentes
 └── requirements.txt      # Arquivo com as dependências necessárias à execução dos scripts
 ```
