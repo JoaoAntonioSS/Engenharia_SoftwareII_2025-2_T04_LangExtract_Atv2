@@ -4,7 +4,7 @@
 Este é o repositório oficial da **Atividade 2** da disciplina **Engenharia de Software II (Turma T04)**.  
 O objetivo é aplicar técnicas de **Processamento de Linguagem Natural (PLN)** para identificar **Padrões de Gerência de Configuração** em um projeto de código aberto.
 
-O trabalho é dividido em três **frentes de análise**, baseadas no material da disciplina (conforme o [PDF de sugestão](https://www.google.com/search?q=Sugest%25C3%25A3o_Atividade1.pdf)):
+O trabalho é dividido em três **frentes de análise**:
 
 1. 🗒️ **Frente 1 – Estratégia de Releases**  
 2. 🧩 **Frente 2 – Modelo de Branching e Fluxo de Trabalho**  
@@ -81,7 +81,47 @@ scripts/estrategia3_governance_analysis.py
 └── README.md             # Documento principal com instruções de execução do projeto e análise geral dos resultados das 3 frentes
 └── requirements.txt      # Arquivo com as dependências necessárias à execução dos scripts
 ```
+## 🗒️ Análise da Frente 1: Estratégia de Releases
+
+**Responsáveis:** Miguel Lucas Santana Freire (análise com modelo de IA) e Débora Diana Gonçalves dos Santos (análise manual)
+
+### 🎯 Objetivo
+Analisar a estratégia de releases do projeto com uma abordagem comparativa, para identificar padrões de gerência de configuração. Na análise manual, foi feita a inspeção manual do histórico de versões, tags e estrutura de branches.
+
+---
+
+### 🧠 Modelos Utilizados
+**Modelo:** `zero-shot-classification`  
+**Base:** `facebook/bart-large-mnli`
+
+**Modelo:** `text2text-generation`  
+**Base:** `google/flan-t5-large`
+
+**Modelo:** `text-classification`  
+**Base:** `distilbert-base-uncased`
+
+### 💡 Por que estes modelos?
+**facebook/bart-large-mnli (Zero-Shot):** Selecionado como o "especialista". É um modelo robusto para classificação sem treinamento prévio.
+
+**google/flan-t5-large (Instruction):** Selecionado pela capacidade de raciocínio lógico baseada em instruções (Text-to-Text).
+
+**distilbert-base-uncased (Distilled):** Selecionado para análise de eficiência. É uma versão leve do BERT, usada para verificar a precisão de modelos compactos.  
+
+### ⚙️ Metodologia
+Definição das Classes (Labels) - Para a classificação Zero-Shot, definimos três categorias distintas que representam os principais paradigmas de Engenharia de Release:  
+**1. Feature-based Release:** Define projetos ágeis onde a publicação de versões é gatilhada pela conclusão de funcionalidades, sem calendário fixo.  
+**2. Release Train:** Define projetos com janelas de lançamento rígidas baseadas em calendário (ex: toda terça-feira), independente do escopo.  
+**3. LTS (Long Term Support):** Define projetos que mantêm suporte e patches de segurança para versões legadas por longos períodos.  
+Justificativa - A escolha destas três classes garante que o modelo avalie os pilares de Velocidade, Previsibilidade e Estabilidade, evitando sobreposição semântica que poderia reduzir a acurácia da inferência.  
+O script executado foi:
+
+```bash
+scripts/estrategia1_releases.py
+```
+
 # Análise Manual vs. Análise de IA do Projeto LangExtract
+
+**Responsáveis:** Allex Lemos de Souza Pinheiro e Thiago Menezes Vasconcelos
 
 ## 1. Estratégia de Releases
 
